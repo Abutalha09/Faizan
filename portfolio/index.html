@@ -1,0 +1,1951 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Md. Faizan — Content Creator | Kanpur</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap"
+    rel="stylesheet" />
+  <style>
+    /* ── RESET & BASE ── */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    :root {
+      --black: #0b0b0b;
+      --white: #f4f1ec;
+      --mid: #7a766e;
+      --accent: #b89a72;
+      --light-bg: #111010;
+    }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* ── CUSTOM CURSOR ── */
+    .cursor {
+      width: 10px;
+      height: 10px;
+      background: var(--white);
+      border-radius: 50%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: transform 0.1s, width 0.2s, height 0.2s, background 0.2s;
+    }
+
+    .cursor-follower {
+      width: 36px;
+      height: 36px;
+      border: 1px solid rgba(184, 154, 114, 0.5);
+      border-radius: 50%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      transition: transform 0.15s ease, width 0.3s, height 0.3s;
+    }
+
+    body.hover-active .cursor {
+      width: 16px;
+      height: 16px;
+      background: var(--accent);
+    }
+
+    body.hover-active .cursor-follower {
+      width: 56px;
+      height: 56px;
+      border-color: var(--accent);
+    }
+
+    /* ── NOISE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      pointer-events: none;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 500;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.8rem 3rem;
+      background: linear-gradient(to bottom, rgba(11, 11, 11, 0.9) 0%, transparent 100%);
+    }
+
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      font-weight: 400;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--white);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--white);
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      opacity: 0.6;
+      transition: opacity 0.3s;
+    }
+
+    .nav-links a:hover {
+      opacity: 1;
+    }
+
+    /* ── PAGE LOADER ── */
+    #loader {
+      position: fixed;
+      inset: 0;
+      z-index: 2000;
+      background: var(--black);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 1.5rem;
+      transition: opacity 0.6s ease, visibility 0.6s;
+    }
+
+    #loader.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .loader-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      font-weight: 300;
+      letter-spacing: 0.2em;
+      overflow: hidden;
+    }
+
+    .loader-name span {
+      display: inline-block;
+      animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    .loader-name span:nth-child(2) {
+      animation-delay: 0.1s;
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .loader-line {
+      width: 0;
+      height: 1px;
+      background: var(--accent);
+      animation: lineGrow 1.2s 0.4s ease forwards;
+    }
+
+    @keyframes slideUp {
+      from {
+        transform: translateY(100%);
+        opacity: 0;
+      }
+
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes lineGrow {
+      to {
+        width: 200px;
+      }
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 9rem 3rem 5rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.2rem;
+      opacity: 0;
+      animation: fadeUp 0.8s 1.2s ease forwards;
+    }
+
+    .hero-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(5rem, 9vw, 9.5rem);
+      font-weight: 300;
+      line-height: 0.88;
+      margin-bottom: 2rem;
+      overflow: hidden;
+    }
+
+    .hero-name .line {
+      display: block;
+      overflow: hidden;
+    }
+
+    .hero-name .line span {
+      display: block;
+      animation: slideUp 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    .hero-name .line:nth-child(1) span {
+      animation-delay: 1s;
+    }
+
+    .hero-name .line:nth-child(2) span {
+      animation-delay: 1.15s;
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .hero-meta {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      animation: fadeUp 0.8s 1.5s ease forwards;
+    }
+
+    .hero-meta span {
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--mid);
+    }
+
+    .hero-meta .divider {
+      width: 30px;
+      height: 1px;
+      background: var(--mid);
+    }
+
+    .hero-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 1rem;
+      text-decoration: none;
+      color: var(--white);
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 1rem 2rem;
+      position: relative;
+      overflow: hidden;
+      width: fit-content;
+      opacity: 0;
+      animation: fadeUp 0.8s 1.7s ease forwards;
+      transition: border-color 0.3s, color 0.3s;
+    }
+
+    .hero-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--accent);
+      transform: translateX(-101%);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: -1;
+    }
+
+    .hero-btn:hover::before {
+      transform: translateX(0);
+    }
+
+    .hero-btn:hover {
+      border-color: var(--accent);
+      color: var(--black);
+    }
+
+    .hero-btn svg {
+      transition: transform 0.3s;
+    }
+
+    .hero-btn:hover svg {
+      transform: translateX(4px);
+    }
+
+    .hero-right {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-right img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.8) contrast(1.05) saturate(0.9);
+      transform: scale(1.05);
+      animation: heroImgReveal 1.5s 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes heroImgReveal {
+      to {
+        transform: scale(1);
+      }
+    }
+
+    .hero-right::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: linear-gradient(to right, var(--black) 0%, transparent 30%);
+    }
+
+    .hero-scroll-hint {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--mid);
+      opacity: 0;
+      animation: fadeUp 0.8s 2s ease forwards;
+    }
+
+    .hero-scroll-hint::after {
+      content: '';
+      width: 1px;
+      height: 50px;
+      background: linear-gradient(to bottom, var(--mid), transparent);
+      animation: scrollLine 2s 2.5s infinite;
+    }
+
+    @keyframes scrollLine {
+      0% {
+        transform: scaleY(0);
+        transform-origin: top;
+      }
+
+      50% {
+        transform: scaleY(1);
+        transform-origin: top;
+      }
+
+      51% {
+        transform: scaleY(1);
+        transform-origin: bottom;
+      }
+
+      100% {
+        transform: scaleY(0);
+        transform-origin: bottom;
+      }
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ── MARQUEE STRIP ── */
+    .marquee-strip {
+      border-top: 1px solid #1e1e1e;
+      border-bottom: 1px solid #1e1e1e;
+      padding: 1rem 0;
+      overflow: hidden;
+      background: #0d0d0d;
+    }
+
+    .marquee-track {
+      display: flex;
+      gap: 3rem;
+      animation: marquee 20s linear infinite;
+      width: max-content;
+    }
+
+    .marquee-track span {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.85rem;
+      font-style: italic;
+      letter-spacing: 0.1em;
+      color: var(--mid);
+      white-space: nowrap;
+    }
+
+    .marquee-track .dot {
+      color: var(--accent);
+    }
+
+    @keyframes marquee {
+      to {
+        transform: translateX(-50%);
+      }
+    }
+
+    /* ── SECTION LABEL ── */
+    .section-label {
+      font-size: 0.6rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 3rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .section-label::before {
+      content: '';
+      width: 30px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    /* ── WORK SECTION ── */
+    #work {
+      padding: 6rem 3rem;
+    }
+
+    .work-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 4rem;
+    }
+
+    .work-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 5vw, 5rem);
+      font-weight: 300;
+      line-height: 1;
+    }
+
+    .work-title em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .work-count {
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      color: var(--mid);
+    }
+
+    .work-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-template-rows: auto;
+      gap: 1.2rem;
+    }
+
+    .work-item {
+      position: relative;
+      overflow: hidden;
+      background: #111;
+    }
+
+    .work-item:nth-child(1) {
+      grid-column: 1 / 8;
+    }
+
+    .work-item:nth-child(2) {
+      grid-column: 8 / 13;
+    }
+
+    .work-item:nth-child(3) {
+      grid-column: 1 / 5;
+    }
+
+    .work-item:nth-child(4) {
+      grid-column: 5 / 9;
+    }
+
+    .work-item:nth-child(5) {
+      grid-column: 9 / 13;
+    }
+
+    .work-item:nth-child(6) {
+      grid-column: 1 / 7;
+    }
+
+    .work-item:nth-child(7) {
+      grid-column: 7 / 13;
+    }
+
+    .work-item img {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      object-position: top;
+      display: block;
+      filter: brightness(0.85) saturate(0.9);
+      transform: scale(1.02);
+      transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s;
+    }
+
+    .work-item:nth-child(1) img,
+    .work-item:nth-child(6) img,
+    .work-item:nth-child(7) img {
+      aspect-ratio: 16/10;
+    }
+
+    .work-item:hover img {
+      transform: scale(1.08);
+      filter: brightness(1) saturate(1.1);
+    }
+
+    .work-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.4s;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 2rem 1.5rem;
+    }
+
+    .work-item:hover .work-overlay {
+      opacity: 1;
+    }
+
+    .work-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3.5rem;
+      font-weight: 300;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 0.2rem;
+      transform: translateY(10px);
+      transition: transform 0.4s 0.05s;
+    }
+
+    .work-item:hover .work-num {
+      transform: translateY(0);
+    }
+
+    .work-overlay p {
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.7);
+      letter-spacing: 0.05em;
+      transform: translateY(10px);
+      transition: transform 0.4s 0.1s;
+    }
+
+    .work-item:hover .work-overlay p {
+      transform: translateY(0);
+    }
+
+    /* ── ABOUT ── */
+    #about {
+      padding: 6rem 3rem;
+      background: var(--light-bg);
+      display: grid;
+      grid-template-columns: 5fr 7fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    .about-img-wrap {
+      position: relative;
+    }
+
+    .about-img-wrap img {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      object-position: top;
+      filter: brightness(0.9) contrast(1.05) saturate(0.85);
+    }
+
+    .about-img-tag {
+      position: absolute;
+      bottom: -1.5rem;
+      right: -1.5rem;
+      background: var(--accent);
+      color: var(--black);
+      padding: 1.2rem 1.5rem;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+
+    .about-text .section-label {
+      margin-bottom: 2rem;
+    }
+
+    .about-text h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.5rem, 4vw, 4.5rem);
+      font-weight: 300;
+      line-height: 1.05;
+      margin-bottom: 2rem;
+    }
+
+    .about-text h2 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .about-text p {
+      color: var(--mid);
+      font-size: 0.9rem;
+      line-height: 1.9;
+      margin-bottom: 1.2rem;
+      max-width: 480px;
+    }
+
+    /* ── INSTAGRAM DASHBOARD ── */
+    .insta-dashboard {
+      margin: 2.5rem 0;
+      border-top: 1px solid #222;
+      padding-top: 2rem;
+    }
+
+    .insta-dashboard-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+    }
+
+    .insta-dashboard-title {
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .insta-dashboard-title::before {
+      content: '';
+      width: 20px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    .insta-verified {
+      font-size: 0.55rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      background: var(--accent);
+      color: var(--black);
+      padding: 0.25rem 0.7rem;
+      font-weight: 500;
+    }
+
+    /* Profile row */
+    .insta-profile-row {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      padding: 1.2rem 1.4rem;
+      border: 1px solid #1e1e1e;
+      background: #0d0d0d;
+      margin-bottom: 1px;
+    }
+
+    .insta-avatar {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      border: 1.5px solid var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      color: var(--accent);
+      flex-shrink: 0;
+      background: #111;
+    }
+
+    .insta-handle {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      font-weight: 400;
+      letter-spacing: 0.03em;
+    }
+
+    .insta-handle-sub {
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-top: 0.2rem;
+    }
+
+    /* Stats bar — 3 columns */
+    .insta-stats-bar {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: #1e1e1e;
+      margin-bottom: 1px;
+    }
+
+    .insta-stat {
+      background: #0d0d0d;
+      padding: 1.3rem 1rem;
+      text-align: center;
+    }
+
+    .insta-stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1;
+    }
+
+    .insta-stat-num.accent {
+      color: var(--accent);
+    }
+
+    .insta-stat-label {
+      font-size: 0.55rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-top: 0.3rem;
+    }
+
+    .insta-stat-trend {
+      font-size: 0.55rem;
+      color: var(--accent);
+      margin-top: 0.15rem;
+      letter-spacing: 0.05em;
+    }
+
+    /* Pro dashboard — 4 columns */
+    .insta-pro-label {
+      font-size: 0.55rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--mid);
+      padding: 0.7rem 1.2rem;
+      background: #0a0a0a;
+      border: 1px solid #1e1e1e;
+      border-bottom: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .insta-pro-label span {
+      color: var(--accent);
+    }
+
+    .insta-pro-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: #1e1e1e;
+      margin-bottom: 1.5rem;
+    }
+
+    .insta-pro-item {
+      background: #0d0d0d;
+      padding: 1.1rem 0.8rem;
+      text-align: center;
+    }
+
+    .insta-pro-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1;
+    }
+
+    .insta-pro-sublabel {
+      font-size: 0.5rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-top: 0.1rem;
+    }
+
+    .insta-pro-desc {
+      font-size: 0.5rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-top: 0.2rem;
+    }
+
+    /* Instagram link */
+    .insta-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      text-decoration: none;
+      color: var(--white);
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 0.7rem 1.5rem;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s, color 0.3s;
+    }
+
+    .insta-link::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--accent);
+      transform: translateX(-101%);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: -1;
+    }
+
+    .insta-link:hover::before {
+      transform: translateX(0);
+    }
+
+    .insta-link:hover {
+      border-color: var(--accent);
+      color: var(--black);
+    }
+
+    .insta-link svg {
+      transition: transform 0.3s;
+    }
+
+    .insta-link:hover svg {
+      transform: translateX(4px);
+    }
+
+    /* Contact links */
+    .about-contact a {
+      display: block;
+      text-decoration: none;
+      color: var(--white);
+      font-size: 0.85rem;
+      margin-bottom: 0.5rem;
+      transition: color 0.2s;
+    }
+
+    .about-contact a:hover {
+      color: var(--accent);
+    }
+
+    /* ── CONTACT ── */
+    #contact {
+      padding: 7rem 3rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    .contact-left h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3.5rem, 6vw, 7rem);
+      font-weight: 300;
+      line-height: 0.9;
+      margin-bottom: 2rem;
+    }
+
+    .contact-left h2 em {
+      font-style: italic;
+      color: var(--accent);
+      display: block;
+    }
+
+    .contact-left p {
+      color: var(--mid);
+      font-size: 0.9rem;
+      line-height: 1.8;
+      max-width: 360px;
+      margin-bottom: 3rem;
+    }
+
+    .contact-imgs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .contact-imgs img {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      object-position: top;
+      filter: brightness(0.8) saturate(0.8);
+    }
+
+    .contact-right .section-label {
+      margin-bottom: 2.5rem;
+    }
+
+    .form-field {
+      margin-bottom: 1.8rem;
+    }
+
+    .form-field label {
+      display: block;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-bottom: 0.6rem;
+    }
+
+    .form-field input,
+    .form-field textarea {
+      width: 100%;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid #2a2a2a;
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 300;
+      padding: 0.7rem 0;
+      outline: none;
+      transition: border-color 0.3s;
+      resize: none;
+    }
+
+    .form-field input:focus,
+    .form-field textarea:focus {
+      border-color: var(--accent);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .submit-btn {
+      margin-top: 1.5rem;
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 1rem 2.5rem;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: color 0.3s, border-color 0.3s;
+    }
+
+    .submit-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--accent);
+      transform: translateX(-101%);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: -1;
+    }
+
+    .submit-btn:hover::before {
+      transform: translateX(0);
+    }
+
+    .submit-btn:hover {
+      border-color: var(--accent);
+      color: var(--black);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid #1a1a1a;
+      padding: 2.5rem 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      letter-spacing: 0.2em;
+    }
+
+    .footer-socials {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .footer-socials a {
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--mid);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-socials a:hover {
+      color: var(--accent);
+    }
+
+    .footer-copy {
+      font-size: 0.65rem;
+      color: #333;
+    }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.9s ease, transform 0.9s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-delay-1 {
+      transition-delay: 0.1s;
+    }
+
+    .reveal-delay-2 {
+      transition-delay: 0.2s;
+    }
+
+    .reveal-delay-3 {
+      transition-delay: 0.3s;
+    }
+
+    /* ── INSTAGRAM HERO BANNER ── */
+    .insta-hero {
+      display: grid;
+      grid-template-columns: 1fr 0.95fr;
+      min-height: 90vh;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 1.2rem;
+    }
+
+    /* Left side — same as hero-left */
+    .insta-hero-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 5rem 3rem 5rem;
+      position: relative;
+      z-index: 2;
+      background: linear-gradient(90deg, rgba(11,11,11,0.85) 0%, rgba(11,11,11,0.45) 50%, transparent 100%);
+    }
+
+    .insta-hero-eyebrow {
+      font-size: 0.62rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .insta-hero-eyebrow.ix-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .insta-hero-heading {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3.5rem, 6vw, 7rem);
+      font-weight: 300;
+      line-height: 0.9;
+      margin-bottom: 2.2rem;
+      overflow: hidden;
+    }
+
+    .insta-hero-heading .iline {
+      display: block;
+      overflow: hidden;
+    }
+
+    .insta-hero-heading .iline span {
+      display: block;
+      transform: translateY(110%);
+      transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .insta-hero-heading .iline:nth-child(2) span {
+      transition-delay: 0.12s;
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .insta-hero-heading.ix-visible .iline span {
+      transform: translateY(0);
+    }
+
+    .insta-hero-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      margin-bottom: 2.5rem;
+      border: 1px solid #1e1e1e;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s 0.25s ease, transform 0.8s 0.25s ease;
+    }
+
+    .insta-hero-stats.ix-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .istat {
+      padding: 1.2rem 1rem;
+      text-align: center;
+      border-right: 1px solid #1e1e1e;
+    }
+
+    .istat:last-child {
+      border-right: none;
+    }
+
+    .istat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.9rem;
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1;
+    }
+
+    .istat-num.accent {
+      color: var(--accent);
+    }
+
+    .istat-label {
+      font-size: 0.55rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-top: 0.3rem;
+    }
+
+    .insta-hero-pro {
+      border: 1px solid #1e1e1e;
+      background: #0d0d0d;
+      margin-bottom: 2rem;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s 0.35s ease, transform 0.8s 0.35s ease;
+    }
+
+    .insta-hero-pro.ix-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .insta-hero-pro-title {
+      font-size: 0.52rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--mid);
+      padding: 0.6rem 1rem;
+      border-bottom: 1px solid #1e1e1e;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .insta-hero-pro-title span {
+      color: var(--accent);
+    }
+
+    .insta-hero-pro-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+    }
+
+    .ipro-item {
+      padding: 0.9rem 0.6rem;
+      text-align: center;
+      border-right: 1px solid #1e1e1e;
+    }
+
+    .ipro-item:last-child {
+      border-right: none;
+    }
+
+    .ipro-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1;
+    }
+
+    .ipro-sub {
+      font-size: 0.48rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-top: 0.15rem;
+    }
+
+    .ipro-desc {
+      font-size: 0.46rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-top: 0.1rem;
+    }
+
+    .insta-hero-meta {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      margin-bottom: 2rem;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s 0.45s ease, transform 0.8s 0.45s ease;
+    }
+
+    .insta-hero-meta.ix-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .insta-hero-meta span {
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--mid);
+    }
+
+    .insta-hero-meta .idivider {
+      width: 24px;
+      height: 1px;
+      background: var(--mid);
+    }
+
+    .insta-hero-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 1rem;
+      text-decoration: none;
+      color: var(--white);
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 1rem 2rem;
+      width: fit-content;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s, color 0.3s;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s 0.55s ease, transform 0.8s 0.55s ease, border-color 0.3s, color 0.3s;
+    }
+
+    .insta-hero-btn.ix-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .insta-hero-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--accent);
+      transform: translateX(-101%);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: -1;
+    }
+
+    .insta-hero-btn:hover::before {
+      transform: translateX(0);
+    }
+
+    .insta-hero-btn:hover {
+      border-color: var(--accent);
+      color: var(--black);
+    }
+
+    .insta-hero-btn svg {
+      transition: transform 0.3s;
+    }
+
+    .insta-hero-btn:hover svg {
+      transform: translateX(4px);
+    }
+
+    /* Right side — image with overlay like hero */
+    .insta-hero-right {
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+    }
+
+    /* Make Instagram image fully visible without cropping */
+    .insta-hero-right img {
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      object-position: center;
+      filter: brightness(0.92) contrast(1.03) saturate(0.95);
+      transform: scale(1);
+      transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s;
+    }
+
+    .insta-hero-right img.ix-visible {
+      transform: scale(1);
+    }
+
+    /* soften the left edge so left and right merge without a hard divider */
+    .insta-hero-right::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: linear-gradient(to left, rgba(11,11,11,0.25) 0%, transparent 45%);
+      pointer-events: none;
+    }
+
+    /* hide the gold divider line */
+    .insta-hero-right::after {
+      display: none;
+    }
+
+    /* Animated gold border reveal on right edge */
+    .insta-hero-right::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1px;
+      height: 0;
+      background: var(--accent);
+      z-index: 2;
+      transition: height 1.2s 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .insta-hero-right.ix-visible::after {
+      height: 100%;
+    }
+
+    /* Floating handle tag on image */
+    .insta-hero-tag {
+      position: absolute;
+      bottom: 2.5rem;
+      right: 2.5rem;
+      z-index: 3;
+      background: var(--accent);
+      color: var(--black);
+      padding: 0.9rem 1.3rem;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-weight: 500;
+      transform: translateY(20px);
+      opacity: 0;
+      transition: opacity 0.8s 0.7s ease, transform 0.8s 0.7s ease;
+    }
+
+    .insta-hero-right.ix-visible .insta-hero-tag {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Verified pill */
+    .insta-hero-verified {
+      position: absolute;
+      top: 2rem;
+      right: 2rem;
+      z-index: 3;
+      font-size: 0.55rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      padding: 0.35rem 0.9rem;
+      opacity: 0;
+      transform: translateX(10px);
+      transition: opacity 0.7s 0.9s ease, transform 0.7s 0.9s ease;
+    }
+
+    .insta-hero-right.ix-visible .insta-hero-verified {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav {
+        padding: 1.5rem 1.5rem;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-left {
+        padding: 8rem 1.5rem 4rem;
+      }
+
+      .hero-right {
+        height: 60vw;
+      }
+
+      #work {
+        padding: 4rem 1.5rem;
+      }
+
+      .work-item:nth-child(n) {
+        grid-column: 1 / -1;
+      }
+
+      .work-item img {
+        aspect-ratio: 4/3;
+      }
+
+      #about {
+        grid-template-columns: 1fr;
+        padding: 4rem 1.5rem;
+        gap: 3rem;
+      }
+
+      .about-img-tag {
+        display: none;
+      }
+
+      .insta-pro-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .insta-hero {
+        grid-template-columns: 1fr;
+        min-height: auto;
+      }
+
+      .insta-hero-left {
+        padding: 3rem 1.5rem;
+      }
+
+      .insta-hero-right {
+        height: 70vw;
+      }
+
+      .insta-hero-pro-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      #contact {
+        grid-template-columns: 1fr;
+        padding: 4rem 1.5rem;
+        gap: 3rem;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      footer {
+        padding: 2rem 1.5rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- CURSOR -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-follower" id="cursorFollower"></div>
+
+  <!-- LOADER -->
+  <div id="loader">
+    <div class="loader-name">
+      <span>Faizan</span><span>&nbsp;×</span>
+    </div>
+    <div class="loader-line"></div>
+  </div>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">Faizan</div>
+    <ul class="nav-links">
+      <li><a href="#work">Work</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-left">
+      <p class="hero-eyebrow">Content Creator &nbsp;·&nbsp; Kanpur, India</p>
+      <h1 class="hero-name">
+        <span class="line"><span>Md.</span></span>
+        <span class="line"><span>Faizan</span></span>
+      </h1>
+      <div class="hero-meta">
+        <span>Vlogger</span>
+        <div class="divider"></div>
+        <span>Lifestyle &amp; Events</span>
+        <div class="divider"></div>
+        <span>Digital Creator</span>
+      </div>
+      <a href="#work" class="hero-btn">
+        View Work
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M5 12h14M12 5l7 7-7 7" />
+        </svg>
+      </a>
+    </div>
+    <div class="hero-right">
+      <img src="images/hero.png" alt="Md. Faizan" />
+    </div>
+    <div class="hero-scroll-hint">Scroll</div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-strip">
+    <div class="marquee-track">
+      <span>Md. Faizan</span><span class="dot">✦</span>
+      <span>Content Creator</span><span class="dot">✦</span>
+      <span>Kanpur, India</span><span class="dot">✦</span>
+      <span>Vlogger</span><span class="dot">✦</span>
+      <span>Lifestyle &amp; Events</span><span class="dot">✦</span>
+      <span>Digital Creator</span><span class="dot">✦</span>
+      <span>Mela · Rides · Local Updates</span><span class="dot">✦</span>
+      <span>DM for Collaboration</span><span class="dot">✦</span>
+      <span>Md. Faizan</span><span class="dot">✦</span>
+      <span>Content Creator</span><span class="dot">✦</span>
+      <span>Kanpur, India</span><span class="dot">✦</span>
+      <span>Vlogger</span><span class="dot">✦</span>
+      <span>Lifestyle &amp; Events</span><span class="dot">✦</span>
+      <span>Digital Creator</span><span class="dot">✦</span>
+      <span>Mela · Rides · Local Updates</span><span class="dot">✦</span>
+      <span>DM for Collaboration</span><span class="dot">✦</span>
+    </div>
+  </div>
+
+  <!-- WORK -->
+  <section id="work">
+    <div class="work-header reveal">
+      <div>
+        <div class="section-label">Selected Work</div>
+        <h2 class="work-title">My <em>Portfolio</em></h2>
+      </div>
+      <span class="work-count">05 Projects</span>
+    </div>
+    <!-- INSTAGRAM HERO BANNER — replaces first 2 work items -->
+    <div class="insta-hero" id="instaHero">
+
+      <!-- LEFT — stats & info -->
+      <div class="insta-hero-left">
+
+        <p class="insta-hero-eyebrow" id="ihEyebrow">Instagram &nbsp;·&nbsp; @md_faizan_873</p>
+
+        <h2 class="insta-hero-heading" id="ihHeading">
+          <span class="iline"><span>My</span></span>
+          <span class="iline"><span>Instagram</span></span>
+        </h2>
+
+        <!-- Posts / Followers / Following -->
+        <div class="insta-hero-stats" id="ihStats">
+          <div class="istat">
+            <div class="istat-num">169</div>
+            <div class="istat-label">Posts</div>
+          </div>
+          <div class="istat">
+            <div class="istat-num accent">2,678</div>
+            <div class="istat-label">Followers</div>
+          </div>
+          <div class="istat">
+            <div class="istat-num">212</div>
+            <div class="istat-label">Following</div>
+          </div>
+        </div>
+
+        <!-- Pro dashboard -->
+        <div class="insta-hero-pro" id="ihPro">
+          <div class="insta-hero-pro-title">Professional Dashboard <span>Last 30 Days</span></div>
+          <div class="insta-hero-pro-grid">
+            <div class="ipro-item">
+              <div class="ipro-num">538K</div>
+              <div class="ipro-sub">Reach</div>
+              <div class="ipro-desc">Accounts</div>
+            </div>
+            <div class="ipro-item">
+              <div class="ipro-num">28.7K</div>
+              <div class="ipro-sub">Interactions</div>
+              <div class="ipro-desc">Content</div>
+            </div>
+            <div class="ipro-item">
+              <div class="ipro-num">+12.4K</div>
+              <div class="ipro-sub">New Followers</div>
+              <div class="ipro-desc">This Month</div>
+            </div>
+            <div class="ipro-item">
+              <div class="ipro-num">2.1M</div>
+              <div class="ipro-sub">Impressions</div>
+              <div class="ipro-desc">Total</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="insta-hero-meta" id="ihMeta">
+          <span>Reel Creator</span>
+          <div class="idivider"></div>
+          <span>Lifestyle</span>
+          <div class="idivider"></div>
+          <span>Events</span>
+        </div>
+
+        <a href="https://www.instagram.com/md_faizan_873/" target="_blank" class="insta-hero-btn" id="ihBtn">
+          View Profile
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+        </a>
+
+      </div>
+
+      <!-- RIGHT — Instagram screenshot -->
+      <div class="insta-hero-right" id="ihRight">
+        <img src="images/insta.png" alt="Md. Faizan Instagram" id="ihImg" />
+        <div class="insta-hero-verified">✓ Verified Creator</div>
+        <div class="insta-hero-tag">@md_faizan_873 · Kanpur</div>
+      </div>
+
+    </div>
+    <!-- END INSTAGRAM HERO BANNER -->
+
+    <div class="work-grid">
+      <div class="work-item reveal reveal-delay-1">
+        <img src="images/work4.png" alt="Project 01" />
+        <div class="work-overlay">
+          <div class="work-num">01</div>
+          <p>Creator: Md. Faizan</p>
+        </div>
+      </div>
+      <div class="work-item reveal reveal-delay-2">
+        <img src="images/work5.png" alt="Project 02" />
+        <div class="work-overlay">
+          <div class="work-num">02</div>
+          <p>Digital Creator</p>
+        </div>
+      </div>
+      <div class="work-item reveal reveal-delay-3">
+        <img src="images/work4.png" alt="Project 03" />
+        <div class="work-overlay">
+          <div class="work-num">03</div>
+          <p>Events Coverage</p>
+        </div>
+      </div>
+      <div class="work-item reveal">
+        <img src="images/work1.png" alt="Project 04" />
+        <div class="work-overlay">
+          <div class="work-num">04</div>
+          <p>Kanpur Vibes</p>
+        </div>
+      </div>
+      <div class="work-item reveal reveal-delay-1">
+        <img src="images/work2.png" alt="Project 05" />
+        <div class="work-overlay">
+          <div class="work-num">05</div>
+          <p>Portrait Session</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="about-img-wrap reveal">
+      <img src="images/image.png" alt="About Faizan" />
+      <div class="about-img-tag">Digital Creator · Kanpur</div>
+    </div>
+    <div class="about-text">
+      <div class="section-label reveal">About Me</div>
+      <h2 class="reveal">Crafting <em>Visual Stories</em> from Kanpur</h2>
+      <p class="reveal reveal-delay-1">Main Md. Faizan hun — Kanpur ka digital creator. Meri kaam mein lifestyle,
+        events, aur local stories ka mix hai. Har frame mein ek kahani hoti hai.</p>
+      <p class="reveal reveal-delay-1">Vlogging se lekar brand collaborations tak, main apne audience ke liye authentic
+        aur engaging content banata hun.</p>
+
+      <!-- ── INSTAGRAM DASHBOARD ── -->
+      <div class="insta-dashboard reveal reveal-delay-2">
+
+        <div class="insta-dashboard-header">
+          <div class="insta-dashboard-title">Instagram Presence</div>
+          <div class="insta-verified">✓ Verified Creator</div>
+        </div>
+
+        <!-- Profile row -->
+        <div class="insta-profile-row">
+          <div class="insta-avatar">MF</div>
+          <div>
+            <div class="insta-handle">@md_faizan_873</div>
+            <div class="insta-handle-sub">Reel Creator · Kanpur, India</div>
+          </div>
+        </div>
+
+        <!-- Posts / Followers / Following -->
+        <div class="insta-stats-bar">
+          <div class="insta-stat">
+            <div class="insta-stat-num">169</div>
+            <div class="insta-stat-label">Posts</div>
+          </div>
+          <div class="insta-stat">
+            <div class="insta-stat-num accent">2,678</div>
+            <div class="insta-stat-label">Followers</div>
+            <div class="insta-stat-trend">↑ Growing</div>
+          </div>
+          <div class="insta-stat">
+            <div class="insta-stat-num">212</div>
+            <div class="insta-stat-label">Following</div>
+          </div>
+        </div>
+
+        <!-- Professional Dashboard -->
+        <div class="insta-pro-label">
+          Professional Dashboard &nbsp;·&nbsp; <span>Last 30 Days</span>
+        </div>
+        <div class="insta-pro-grid">
+          <div class="insta-pro-item">
+            <div class="insta-pro-num">538K</div>
+            <div class="insta-pro-sublabel">Reach</div>
+            <div class="insta-pro-desc">Accounts</div>
+          </div>
+          <div class="insta-pro-item">
+            <div class="insta-pro-num">28.7K</div>
+            <div class="insta-pro-sublabel">Interactions</div>
+            <div class="insta-pro-desc">Content</div>
+          </div>
+          <div class="insta-pro-item">
+            <div class="insta-pro-num">+12.4K</div>
+            <div class="insta-pro-sublabel">New Followers</div>
+            <div class="insta-pro-desc">This Month</div>
+          </div>
+          <div class="insta-pro-item">
+            <div class="insta-pro-num">2.1M</div>
+            <div class="insta-pro-sublabel">Impressions</div>
+            <div class="insta-pro-desc">Total</div>
+          </div>
+        </div>
+
+        <a href="https://www.instagram.com/md_faizan_873/" target="_blank" class="insta-link">
+          View Profile
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+        </a>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="contact-left">
+      <div class="section-label reveal">Get In Touch</div>
+      <h2 class="reveal">Impressed<em>?</em></h2>
+      <p class="reveal reveal-delay-1">Let us cross paths — reach out and we'll work on your next project together.</p>
+
+    </div>
+    <div class="contact-right">
+      <div class="section-label reveal">Send a Message</div>
+      <form onsubmit="handleSubmit(event)">
+        <div class="form-row">
+          <div class="form-field reveal">
+            <label for="fname">Name</label>
+            <input type="text" id="fname" placeholder="Your name" />
+          </div>
+          <div class="form-field reveal reveal-delay-1">
+            <label for="lname">Last Name</label>
+            <input type="text" id="lname" placeholder="Last name" />
+          </div>
+        </div>
+        <div class="form-field reveal reveal-delay-1">
+          <label for="email">Your email *</label>
+          <input type="email" id="email" placeholder="Your email address" required />
+        </div>
+        <div class="form-field reveal reveal-delay-2">
+          <label for="message">Message *</label>
+          <textarea id="message" rows="6" placeholder="Tell me about your project..." required></textarea>
+        </div>
+        <button type="submit" class="submit-btn reveal reveal-delay-3">Submit</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">Md. Faizan</div>
+    <div class="footer-socials">
+      <a href="https://twitter.com/" target="_blank" rel="noopener">Twitter</a>
+      <a href="https://www.facebook.com/sajiya.sajiya.5895" target="_blank" rel="noopener">Facebook</a>
+      <a href="https://www.instagram.com/md_faizan_873/" target="_blank" rel="noopener">Instagram</a>
+    </div>
+    <span class="footer-copy">© 2026 Md. Faizan · Kanpur</span>
+  </footer>
+
+  <script>
+    /* ── LOADER ── */
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        document.getElementById('loader').classList.add('hidden');
+      }, 1800);
+    });
+
+    /* ── CUSTOM CURSOR ── */
+    const cursor = document.getElementById('cursor');
+    const follower = document.getElementById('cursorFollower');
+    let mx = 0, my = 0, fx = 0, fy = 0;
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      cursor.style.left = mx + 'px';
+      cursor.style.top = my + 'px';
+    });
+    function animateFollower() {
+      fx += (mx - fx) * 0.12;
+      fy += (my - fy) * 0.12;
+      follower.style.left = fx + 'px';
+      follower.style.top = fy + 'px';
+      requestAnimationFrame(animateFollower);
+    }
+    animateFollower();
+    document.querySelectorAll('a, button, .work-item').forEach(el => {
+      el.addEventListener('mouseenter', () => document.body.classList.add('hover-active'));
+      el.addEventListener('mouseleave', () => document.body.classList.remove('hover-active'));
+    });
+
+    /* ── SCROLL REVEAL ── */
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    /* ── INSTAGRAM HERO BANNER ANIMATIONS ── */
+    (function () {
+      const targets = [
+        { el: document.getElementById('ihEyebrow'), cls: 'ix-visible' },
+        { el: document.getElementById('ihHeading'), cls: 'ix-visible' },
+        { el: document.getElementById('ihStats'), cls: 'ix-visible' },
+        { el: document.getElementById('ihPro'), cls: 'ix-visible' },
+        { el: document.getElementById('ihMeta'), cls: 'ix-visible' },
+        { el: document.getElementById('ihBtn'), cls: 'ix-visible' },
+        { el: document.getElementById('ihRight'), cls: 'ix-visible' },
+        { el: document.getElementById('ihImg'), cls: 'ix-visible' },
+      ];
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            targets.forEach(t => { if (t.el) t.el.classList.add(t.cls); });
+            obs.disconnect();
+          }
+        });
+      }, { threshold: 0.15 });
+      const hero = document.getElementById('instaHero');
+      if (hero) obs.observe(hero);
+    })();
+    function handleSubmit(e) {
+      e.preventDefault();
+      const btn = e.target.querySelector('.submit-btn');
+      btn.textContent = 'Message Sent ✓';
+      btn.style.background = 'var(--accent)';
+      btn.style.color = 'var(--black)';
+      btn.style.borderColor = 'var(--accent)';
+      btn.disabled = true;
+    }
+  </script>
+
+</body>
+
+</html>
