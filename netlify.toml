@@ -1,0 +1,7 @@
+[build]
+  # publish directory points to the folder that contains index.html
+  publish = "portfolio"
+
+[dev]
+  # no build command for static site
+  command = ""
